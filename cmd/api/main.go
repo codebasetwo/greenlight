@@ -10,6 +10,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/codebasetwo/greenlight/internal/data"
 	_ "github.com/lib/pq"
 )
 
@@ -29,6 +30,7 @@ type config struct {
 type application struct {
 	config config
 	logger *log.Logger
+	models data.Models
 }
 
 func main() {
@@ -49,24 +51,22 @@ func main() {
 	flag.Parse()
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
-	// Call the openDB() helper function (see below) to create the connection pool,
-	// passing in the config struct. If this returns an error, we log it and exit the
-	// application immediately.
 	db, err := openDB(cfg)
 	if err != nil {
 		logger.Fatal(err)
 	}
-	// Defer a call to db.Close() so that the connection pool is closed before the
-	// main() function exits.
+
 	defer db.Close()
 
-	// Also log a message to say that the connection pool has been successfully
-	// established.
 	logger.Printf("database connection pool established")
+
+	// Use the data.NewModels() function to initialize a Models struct, passing in the
+	// connection pool as a parameter.
 
 	app := &application{
 		config: cfg,
 		logger: logger,
+		models: data.NewModels(db),
 	}
 
 	srv := http.Server{
