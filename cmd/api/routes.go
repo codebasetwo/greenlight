@@ -23,6 +23,6 @@ func (app *application) routes() *httprouter.Router {
 	// Add the route for the PATCH /v1/movies/:id endpoint.
 	router.HandlerFunc(http.MethodPatch, "/v1/movies/:id", app.updateMovieHandler)
 	router.HandlerFunc(http.MethodDelete, "/v1/movies/:id", app.deleteMovieHandler)
-	// trial
+
 	return router
 }
