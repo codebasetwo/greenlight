@@ -62,7 +62,6 @@ func main() {
 
 	// Use the data.NewModels() function to initialize a Models struct, passing in the
 	// connection pool as a parameter.
-
 	app := &application{
 		config: cfg,
 		logger: logger,
