@@ -18,7 +18,7 @@ func (app *application) _(w http.ResponseWriter, r *http.Request) {
 	// http.ResponseWriter.
 	err := json.NewEncoder(w).Encode(data)
 	if err != nil {
-		app.logger.Println(err)
+		// app.logger.Println(err)
 		http.Error(w, "The server encountered a problem and could not process your request",
 			http.StatusInternalServerError)
 	}
