@@ -35,6 +35,10 @@ func (app *application) routes() http.Handler {
 
 	router.HandlerFunc(http.MethodPost, "/v1/tokens/authentication", app.createAuthenticationTokenHandler)
 
+	// Add the POST /v1/tokens/password-reset endpoint.
+	router.HandlerFunc(http.MethodPost, "/v1/tokens/password-reset",
+		app.createPasswordResetTokenHandler)
+
 	router.Handler(http.MethodGet, "/debug/vars", expvar.Handler())
 	// Wrap the router with the rateLimit() middleware.
 	// Use the authenticate() middleware on all requests.
